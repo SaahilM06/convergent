@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Cars</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="cars-page">
+    <div id="header">
+        <div class="container">
+            <nav>
+                <ul id="sidemenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="cars">
+        <div class="container">
+            <h1 class="sub-title">Available Cars</h1>
+            <div id="car-list" class="work-list">
+                <!-- Cars will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="car-details" class="container" style="display: none;">
+        <h1 class="sub-title">Car Details</h1>
+        <div id="car-info">
+            <!-- Car details will be dynamically inserted here -->
+        </div>
+        <button class="btn" onclick="goBack()">Back to Cars</button>
+    </div>
+    
+    <script>
+        const API_BASE = 'https://dealership.naman.zip';
+    
+        async function fetchCars() {
+            const response = await fetch(`${API_BASE}/cars/sort?direction=asc&key=price`);
+            const cars = await response.json();
+    
+            const carList = document.getElementById('car-list');
+            carList.innerHTML = '';
+    
+            cars.forEach(car => {
+                const carDiv = document.createElement('div');
+                carDiv.classList.add('work');
+    
+                carDiv.innerHTML = `
+                    <img src="${car.image}" alt="${car.make} ${car.model}">
+                    <div class="layer">
+                        <h3>${car.make} ${car.model}</h3>
+                        <p>Year: ${car.year}</p>
+                        <p>Price: $${car.price}</p>
+                        <button class="btn" onclick="viewCarDetails('${car.id}')">View Details</button>
+                    </div>
+                `;
+    
+                carList.appendChild(carDiv);
+            });
+        }
+    
+        async function viewCarDetails(carId) {
+            const response = await fetch(`${API_BASE}/car/${carId}`);
+            const car = await response.json();
+    
+            const carDetails = document.getElementById('car-info');
+            carDetails.innerHTML = `
+                <img src="${car.image}" alt="${car.make} ${car.model}" style="width: 100%; max-width: 400px;">
+                <h3>${car.make} ${car.model}</h3>
+                <p>Year: ${car.year}</p>
+                <p>Price: $${car.price}</p>
+                <p>Mileage: ${car.mileage}</p>
+                <p>Condition: ${car.condition}</p>
+                <p>Fuel Type: ${car.fuel_type}</p>
+                <p>Transmission: ${car.transmission}</p>
+                <p>Color: ${car.color}</p>
+                <p>VIN: ${car.vin}</p>
+                <p>Description: ${car.description}</p>
+            `;
+    
+            document.getElementById('cars').style.display = 'none';
+            document.getElementById('car-details').style.display = 'block';
+        }
+    
+        function goBack() {
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('cars').style.display = 'block';
+        }
+    
+        fetchCars();
+    </script>
+</body>
+</html>
