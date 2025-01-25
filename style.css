@@ -30,13 +30,13 @@ body.contact-page #header {
     height: 100vh;
     background: url('images/Untitled\ design.png') center/cover fixed;
     position: relative;
-    z-index: 10; /* Keep it above other sections initially */
+    z-index: 10; 
 }
 
 .rental-text {
     margin-top: 20px;
-    color: #fff; /* Text color */
-    text-align: left; /* Align text to the left */
+    color: #fff; 
+    text-align: left; 
     font-size: 18px;
 }
 
@@ -47,7 +47,7 @@ body.contact-page #header {
 }
 
 .rental-text h2 span {
-    color: #ff004f; /* Highlight the price */
+    color: #ff004f; 
     font-weight: bold;
 }
 
@@ -101,12 +101,11 @@ body.contact-page #header {
     top: 0;
     width: 100%;
     transform: translateY(0);
-    background-color: #080808; /* Sticky mode background matches header */
+    background-color: #080808; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 15;
 }
 
-/* Pricing Cards */
 .pricing-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -116,45 +115,45 @@ body.contact-page #header {
 }
 
 .pricing-card {
-    background: #111; /* Dark background for the cards */
+    background: #111; 
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: space-between; /* Space out elements */
-    align-items: center; /* Center horizontally */
-    height: 100%; /* Ensure consistent height */
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: 100%; 
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .pricing-card img {
     width: auto;
-    max-width: 100%; /* Ensure image doesn't exceed the card width */
-    height: 150px; /* Set consistent height for images */
-    object-fit: contain; /* Ensure the aspect ratio is maintained */
-    margin-bottom: 20px; /* Add spacing below the image */
+    max-width: 100%; 
+    height: 150px; 
+    object-fit: contain; 
+    margin-bottom: 20px; 
 }
 
 .pricing-card h3 {
     font-size: 24px;
     margin: 10px 0;
-    color: #fff; /* White text for headings */
+    color: #fff; 
 }
 
 .pricing-card .price {
     font-size: 28px;
-    color: #ff004f; /* Highlight the price in red */
+    color: #ff004f; 
     margin: 15px 0;
 }
 
 .pricing-card p {
     font-size: 16px;
-    color: #aaa; /* Slightly muted text color */
+    color: #aaa; 
     margin: 5px 0;
-    text-align: center; /* Center the text */
-    line-height: 1.5; /* Increase line height for better readability */
+    text-align: center; 
+    line-height: 1.5; 
 } 
 
 
@@ -171,65 +170,64 @@ body.contact-page #header {
 }
 
 .pricing-card .btn:hover {
-    background: #e60042; /* Slightly darker red on hover */
+    background: #e60042;
 }
 
-/* Add subtle hover effect to cards */
 .pricing-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .pricing-card {
-    background: #111; /* Dark background for the cards */
+    background: #111; 
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: space-between; /* Space out elements */
-    align-items: center; /* Center horizontally */
-    height: 450px; /* Ensure consistent height */
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: 450px; 
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .pricing-card img {
     width: auto;
-    max-width: 100%; /* Ensure image doesn't exceed the card width */
-    height: 150px; /* Set consistent height for images */
-    object-fit: contain; /* Ensure the aspect ratio is maintained */
-    margin-bottom: 10px; /* Add spacing below the image */
+    max-width: 100%; 
+    height: 150px;
+    object-fit: contain; 
+    margin-bottom: 10px; 
 }
 
 .pricing-card h3 {
     font-size: 24px;
     margin: 10px 0;
-    color: #fff; /* White text for headings */
+    color: #fff; 
 }
 
 .pricing-card .price {
     font-size: 28px;
-    color: #ff004f; /* Highlight the price in red */
+    color: #ff004f; 
     margin: 15px 0;
 }
 
 .pricing-card ul {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
     padding: 0;
     list-style: none;
     color: #fff;
     font-size: 16px;
-    text-align: center; /* Center the text */
-    line-height: 1.5; /* Increase line height for better readability */
+    text-align: center; 
+    line-height: 1.5; 
 }
 
 
 
 
 body#cars-page #header {
-    background: none; /* Remove the image */
-    height: auto; /* Adjust height if needed */
+    background: none; 
+    height: auto; 
 }
 
 .container {
@@ -290,42 +288,42 @@ nav ul li a:hover::after {
 }
 
 .car-details-card {
-    background: #111; /* Dark background for contrast */
+    background: #111; 
     color: #fff;
-    max-width: 800px; /* Limit the width of the card */
-    margin: 0 auto; /* Center align the card */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    max-width: 800px; 
+    margin: 0 auto; 
+    border-radius: 15px; 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
     padding: 20px;
     text-align: center;
 }
 
 .car-image {
-    width: 100%; /* Full width */
-    max-width: 600px; /* Restrict max width */
-    border-radius: 15px; /* Rounded corners for the image */
-    margin: 0 auto 20px; /* Center align with spacing */
+    width: 100%; 
+    max-width: 600px; 
+    border-radius: 15px; 
+    margin: 0 auto 20px; 
     display: block;
 }
 
 .car-details {
-    padding: 20px; /* Add padding to the details section */
+    padding: 20px; 
 }
 
 .car-title {
-    font-size: 32px; /* Larger font for the title */
-    color: #ff004f; /* Highlighted color for the title */
+    font-size: 32px; 
+    color: #ff004f; 
     margin-bottom: 20px;
 }
 
 .car-details p {
-    font-size: 16px; /* Standard font size for details */
-    line-height: 1.6; /* Add line height for readability */
+    font-size: 16px; 
+    line-height: 1.6; 
     margin: 10px 0;
 }
 
 .car-details p strong {
-    color: #ff004f; /* Highlight the labels */
+    color: #ff004f; 
 }
 
 .sub-title {
@@ -510,14 +508,14 @@ nav ul li a:hover::after {
     background: #ff004f;
     color: #fff;
     border: none;
-    padding: 8px 16px; /* Adjust padding for a smaller size */
-    font-size: 14px; /* Smaller font size */
+    padding: 8px 16px; 
+    font-size: 14px; 
     border-radius: 5px;
     text-decoration: none;
     transition: background 0.3s;
     cursor: pointer;
-    text-align: center; /* Center text within the button */
-    width: auto; /* Ensure it doesn't stretch */
+    text-align: center; 
+    width: auto; 
 }
 .btn.btn2 {
     background: #ff004f;
@@ -551,23 +549,23 @@ form input, form textarea {
     outline: none;
 }
 .go-back-btn {
-    position: relative; /* Allows fine-tuning */
-    margin-right: 80px; /* Move it further to the right */
-    margin-top: -20px; /* Keep it moved upwards */
-    float: left; /* Align it to the right */
-    padding: 15px 30px; /* Increase padding for a larger button */
-    font-size: 18px; /* Increase font size */
-    border-radius: 8px; /* Optional: Make the corners slightly rounded */
+    position: relative; 
+    margin-right: 80px; 
+    margin-top: -20px; 
+    float: left; 
+    padding: 15px 30px; 
+    font-size: 18px; 
+    border-radius: 8px; 
 }
 
 .go-back-btn2 {
-    position: relative; /* Allows fine-tuning */
-    margin-right: 80px; /* Move it further to the right */
-    margin-top: -20px; /* Keep it moved upwards */
-    float: right; /* Align it to the right */
-    padding: 15px 30px; /* Increase padding for a larger button */
-    font-size: 18px; /* Increase font size */
-    border-radius: 8px; /* Optional: Make the corners slightly rounded */
+    position: relative; 
+    margin-right: 80px;
+    margin-top: -20px;
+    float: right; 
+    padding: 15px 30px; 
+    font-size: 18px; 
+    border-radius: 8px; 
 }
 
 form button {
@@ -586,7 +584,6 @@ form button:hover {
     color: #ff004f;
 }
 
-/* CHeckout page */
 .checkout-container {
     max-width: 500px;
     margin: 50px auto;
