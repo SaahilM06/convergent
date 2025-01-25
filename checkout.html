@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-form select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            background: #262626; 
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .checkout-form select:focus {
+            outline: 2px solid #ff004f; 
+        }
+
+        .checkout-form select option {
+            background: #262626; 
+            color: #fff; 
+        }
+    </style>
+</head>
+<body>
+    <div id="checkout">
+        <div class="container">
+            <nav>
+                <ul id="sidemenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="checkout-container">
+        <h1 class="sub-title">Checkout</h1>
+        <form class="checkout-form">
+            <label for="car-selection">Select a Car</label>
+            <select id="car-selection" name="car-selection" required>
+                <option value="">--Select a Car--</option>
+            </select>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="card-number">Credit Card Number</label>
+            <input type="text" id="card-number" name="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+
+            <label for="expiry-date">Expiration Date</label>
+            <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" maxlength="5" required>
+
+            <label for="cvc">CVC</label>
+            <input type="text" id="cvc" name="cvc" placeholder="123" maxlength="3" required>
+
+            <button type="submit" class="btn btn2">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        const API_BASE = 'https://dealership.naman.zip';
+
+        async function populateCarDropdown() {
+            try {
+                const response = await fetch(`${API_BASE}/cars`);
+                const cars = await response.json();
+
+                const dropdown = document.getElementById('car-selection');
+                cars.forEach(car => {
+                    const option = document.createElement('option');
+                    option.value = car.id;
+                    option.textContent = `${car.make} ${car.model} - $${car.price}`;
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching cars:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', populateCarDropdown);
+    </script>
+</body>
+</html>

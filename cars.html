@@ -5,15 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Available Cars</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+      
+        #cars {
+            height: 100vh; 
+            overflow-y: scroll; 
+            position: relative;
+        }
+
+        .work-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            grid-gap: 40px;
+            height: 100%; 
+            position: relative;
+        }
+
+        .work {
+            height: 25vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: 0; 
+            transition: opacity 0.6s ease; 
+        }
+
+        .work.visible {
+            opacity: 1; 
+        }
+
+        .work img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+
+        .work:hover img {
+            transform: scale(1.1); 
+        }
+
+        #sort-options {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        #sort-options select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #sort-options button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff004f;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #sort-options button:hover {
+            background-color: #e60042;
+        }
+       
+#loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none; 
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-left-color: #ff004f;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+    </style>
 </head>
 <body class="cars-page">
+    <div id="loading-spinner">
+        <div class="spinner"></div>
+    </div>
     <div id="header">
         <div class="container">
             <nav>
                 <ul id="sidemenu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="cars.html">Cars</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,47 +124,88 @@
     <div id="cars">
         <div class="container">
             <h1 class="sub-title">Available Cars</h1>
+            
+            
+            <div id="sort-options">
+                <select id="sort-by">
+                    <option value="price">Price</option>
+                    <option value="year">Year</option>
+                    <option value="mileage">Mileage</option>
+                </select>
+                <button onclick="sortCars()">Sort</button>
+            </div>
+            
             <div id="car-list" class="work-list">
-                <!-- Cars will be dynamically inserted here -->
+                
             </div>
         </div>
     </div>
     
     <div id="car-details" class="container" style="display: none;">
         <h1 class="sub-title">Car Details</h1>
-        <div id="car-info">
-            <!-- Car details will be dynamically inserted here -->
+        <div id="car-info" class="car-details-card">
+            <div class="car-details-box">
+                <img src="path-to-car-image.jpg" alt="Car Image" class="car-image">
+                <h2 class="car-title">Volkswagen Passat</h2>
+                <p><strong>Year:</strong> 2019</p>
+                <p><strong>Price:</strong> $18,500</p>
+                <p><strong>Mileage:</strong> 33,000</p>
+                <p><strong>Condition:</strong> Very Good</p>
+                <p><strong>Fuel Type:</strong> Gasoline</p>
+                <p><strong>Transmission:</strong> Automatic</p>
+                <p><strong>Color:</strong> Blue</p>
+                <p><strong>VIN:</strong> 1VWAA7A36KC111111</p>
+                <p><strong>Description:</strong> This refined blue Passat delivers European sedan sophistication with its comfortable ride and well-appointed interior. The very good condition and reasonable mileage make it an attractive option in the midsize sedan segment. Its blend of comfort, efficiency, and German engineering provides an engaging driving experience at an excellent value.</p>
+            </div>
         </div>
-        <button class="btn" onclick="goBack()">Back to Cars</button>
+        
+        <button class="btn go-back-btn" onclick="goBack()">Go Back to Cars</button>
+        <button class="btn go-back-btn2" onclick="goTo()">Checkout</button>
+
     </div>
     
     <script>
         const API_BASE = 'https://dealership.naman.zip';
     
-        async function fetchCars() {
-            const response = await fetch(`${API_BASE}/cars/sort?direction=asc&key=price`);
-            const cars = await response.json();
-    
-            const carList = document.getElementById('car-list');
-            carList.innerHTML = '';
-    
-            cars.forEach(car => {
-                const carDiv = document.createElement('div');
-                carDiv.classList.add('work');
-    
-                carDiv.innerHTML = `
-                    <img src="${car.image}" alt="${car.make} ${car.model}">
-                    <div class="layer">
-                        <h3>${car.make} ${car.model}</h3>
-                        <p>Year: ${car.year}</p>
-                        <p>Price: $${car.price}</p>
-                        <button class="btn" onclick="viewCarDetails('${car.id}')">View Details</button>
-                    </div>
-                `;
-    
-                carList.appendChild(carDiv);
-            });
+        async function fetchCars(sortKey = 'price') {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.style.display = 'block'; 
+
+    try {
+        const response = await fetch(`${API_BASE}/cars/sort?direction=asc&key=${sortKey}`);
+        const cars = await response.json();
+
+        const carList = document.getElementById('car-list');
+        carList.innerHTML = '';
+
+        for (const car of cars) {
+            const carDetails = await fetch(`${API_BASE}/car/${car.id}`);
+            const detailedCar = await carDetails.json();
+
+            const carDiv = document.createElement('div');
+            carDiv.classList.add('work');
+
+            carDiv.innerHTML = `
+                <img src="${detailedCar.image}" alt="${detailedCar.make} ${detailedCar.model}">
+                <div class="layer">
+                    <h3>${detailedCar.make} ${detailedCar.model}</h3>
+                    <p>Price: $${detailedCar.price}</p>
+                    <button class="btn" onclick="viewCarDetails('${detailedCar.id}')">View Details</button>
+                </div>
+            `;
+
+            carList.appendChild(carDiv);
         }
+
+        applyIntersectionObserver();
+    } catch (error) {
+        console.error('Error fetching cars:', error);
+    } finally {
+        spinner.style.display = 'none'; 
+    }
+}
+
+
     
         async function viewCarDetails(carId) {
             const response = await fetch(`${API_BASE}/car/${carId}`);
@@ -90,6 +233,36 @@
         function goBack() {
             document.getElementById('car-details').style.display = 'none';
             document.getElementById('cars').style.display = 'block';
+        }
+
+        function goTo() {
+            window.location.href = "checkout.html";
+        }
+
+        
+
+        function applyIntersectionObserver() {
+            const works = document.querySelectorAll(".work");
+            const options = {
+                threshold: 0.5, 
+            };
+        
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible"); 
+                    } else {
+                        entry.target.classList.remove("visible"); 
+                    }
+                });
+            }, options);
+        
+            works.forEach((work) => observer.observe(work));
+        }
+
+        function sortCars() {
+            const sortBy = document.getElementById('sort-by').value;
+            fetchCars(sortBy); 
         }
     
         fetchCars();
